@@ -2,7 +2,9 @@
 //
 'use strict';
 
-module.exports = function front_matter_plugin(md, cb) {
+module.exports = function front_matter_plugin(md, opts) {
+  opts = Object.assign({}, opts)
+
   var min_markers = 3,
       marker_str  = '-',
       marker_char = marker_str.charCodeAt(0),
@@ -104,7 +106,9 @@ module.exports = function front_matter_plugin(md, cb) {
     state.lineMax = old_line_max;
     state.line = nextLine + (auto_closed ? 1 : 0);
 
-    cb(state.src.slice(start_content, start - 1))
+    if (opts.callback) {
+        opts.callback(state.src.slice(start_content, start - 1))
+    }
 
     return true;
   }
