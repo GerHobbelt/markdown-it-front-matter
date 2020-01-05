@@ -1,10 +1,10 @@
 {
-  "name": "markdown-it-front-matter",
-  "version": "0.1.2",
-  "description": "Plugin to process front matter container for markdown-it markdown parser",
+  "name": "@asdofindia/markdown-it-front-matter",
+  "version": "0.2.2",
+  "description": "Plugin to process front matter container for markdown-it markdown parser (based on Craig McKenna's original)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/craigdmckenna/markdown-it-front-matter.git"
+    "url": "git://github.com/asdofindia/markdown-it-front-matter.git"
   },
   "main": "index.js",
   "keywords": [
@@ -20,6 +20,7 @@
     "metadata"
   ],
   "author": "Craig McKenna",
+  "contributors": ["Akshay S Dinesh <asdofindia@gmail.com> (https://asd.learnlearn.in)"],
   "license": "MIT",
   "devDependencies": {
     "markdown-it": "6.0.1"
