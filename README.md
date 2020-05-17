@@ -1,8 +1,11 @@
 # markdown-it-front-matter
 
-> Plugin for processing front matter for markdown-it markdown parser.
+[![Build Status](https://img.shields.io/travis/GerHobbelt/markdown-it-front-matter/master.svg?style=flat)](https://travis-ci.org/GerHobbelt/markdown-it-front-matter)
+[![NPM version](https://img.shields.io/npm/v/@gerhobbelt/markdown-it-front-matter.svg?style=flat)](https://www.npmjs.org/package/@gerhobbelt/markdown-it-front-matter)
+[![Coverage Status](https://img.shields.io/coveralls/GerHobbelt/markdown-it-front-matter/master.svg?style=flat)](https://coveralls.io/r/GerHobbelt/markdown-it-front-matter?branch=master)
 
-[![npm](https://badge.fury.io/js/markdown-it-front-matter.svg)](https://badge.fury.io/js/markdown-it-front-matter)
+> Plugin for processing front matter for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
+
 
 ### Valid Front Matter
 
@@ -34,8 +37,8 @@ valid-front-matter: true
     (which is a [`Object.assign()`-ed copy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) of the options object you passed earlier into the `use()` API call).
 
 ```javascript
-const md = require('markdown-it')()
-  .use(require('markdown-it-front-matter'), {
+const md = require('@gerhobbelt/markdown-it')()
+  .use(require('@gerhobbelt/markdown-it-front-matter'), {
     callback: function(fm, token, state) {
       console.log(fm);
     }

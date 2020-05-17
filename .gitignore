@@ -1,5 +1,16 @@
-.vscode
+# OS X crap
 .DS_Store
-node_modules
-yarn.lock
-package-lock.json
+
+# no log
+*.log
+
+# Node.js / npm
+node_modules/
+
+# code coverage
+.nyc_output
+coverage/
+
+# misc editor cruft
+.vscode
+

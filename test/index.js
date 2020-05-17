@@ -1,8 +1,10 @@
+/* eslint-env node, mocha */
+
 const assert = require('assert');
 
 describe('Markdown It Front Matter', () => {
 
-  let foundFrontmatter = undefined;
+  let foundFrontmatter;
   const md = require('@gerhobbelt/markdown-it')()
     .use(require('../'), {
       callback: fm => { foundFrontmatter = fm; }
@@ -56,7 +58,7 @@ describe('Markdown It Front Matter', () => {
       'people:',
       '    name: John Smith',
       '    age: 33',
-      'morePeople: { name: Grace Jones, age: 21 }',
+      'morePeople: { name: Grace Jones, age: 21 }'
     ].join('\n');
 
     assert.equal(
@@ -112,22 +114,23 @@ describe('Markdown It Front Matter', () => {
 
   it('can use custom members of its options object in the user-defined callback', () => {
     const options = {
-        foo: 1,
-        bar: 2,
-        callback: function (fm, token, state) { 
-          // Note: we reference `this`, hence cannot use a lambda function like in the other tests above,
-          // as per https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-          foundFrontmatter = this; 
-          this.foo = fm; 
+      foo: 1,
+      bar: 2,
+      callback: function (fm, token, state) {
+        // Note: we reference `this`, hence cannot use a lambda function like in the other tests above,
+        // as per https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+        /* eslint consistent-this:off */
+        foundFrontmatter = this;
+        this.foo = fm;
 
           // test the additional callback parameters:
-          assert.equal(token.type, 'front_matter');
-          assert.equal(token.meta, fm);
-          assert.equal(state.src, '----\nx: 3\n---\n# Head');
-          assert.equal(!!state.env, true);
-          assert.equal(typeof state.env, 'object');
-        }
-      };
+        assert.equal(token.type, 'front_matter');
+        assert.equal(token.meta, fm);
+        assert.equal(state.src, '----\nx: 3\n---\n# Head');
+        assert.equal(!!state.env, true);
+        assert.equal(typeof state.env, 'object');
+      }
+    };
     const md = require('@gerhobbelt/markdown-it')()
       .use(require('../'), options);
 
@@ -142,7 +145,7 @@ describe('Markdown It Front Matter', () => {
 
     // options object HAS been copied inside markdown-it-front-matter:
     assert.notEqual(foundFrontmatter, options);
-    
+
     assert.equal(foundFrontmatter.foo, 'x: 3\n---');
     assert.equal(foundFrontmatter.bar, 2);
     assert.equal(typeof foundFrontmatter.callback, 'function');

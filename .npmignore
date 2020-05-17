@@ -1,6 +1,7 @@
-coverage/
+/.github
 support/
+.nyc_output
+coverage/
 test/
 Makefile
 .*
-*.log
