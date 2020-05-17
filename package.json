@@ -20,13 +20,16 @@
     "metadata"
   ],
   "author": "Craig McKenna",
-  "contributors": ["Akshay S Dinesh <asdofindia@gmail.com> (https://asd.learnlearn.in)"],
+  "contributors": [
+    "Akshay S Dinesh <asdofindia@gmail.com> (https://asd.learnlearn.in)"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "@gerhobbelt/markdown-it": "10.0.0-30",
-    "mocha": "7.0.1"
+    "@gerhobbelt/markdown-it": "10.0.0-34",
+    "mocha": "7.1.2"
   },
   "scripts": {
+    "build": "npm test",
     "test": "mocha test",
     "pub": "npm publish --access public"
   }

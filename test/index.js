@@ -3,8 +3,10 @@ const assert = require('assert');
 describe('Markdown It Front Matter', () => {
 
   let foundFrontmatter = undefined;
-  const md = require('markdown-it')()
-    .use(require('../index'), fm => { foundFrontmatter = fm; });
+  const md = require('@gerhobbelt/markdown-it')()
+    .use(require('../'), {
+      callback: fm => { foundFrontmatter = fm; }
+    });
 
   beforeEach(() => {
     foundFrontmatter = undefined;
