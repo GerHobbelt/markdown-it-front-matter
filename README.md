@@ -27,14 +27,17 @@ valid-front-matter: true
 ### Example
 
   * Front Matter is not rendered.
-  * Any markup inside the block is passed to the **required** callback function.
-  * The callback's `this` references the active markdown-it-front-matter options object.
+  * Any markup inside the block is passed to the **required** callback function as the first parameter.
+  * The markdown_it 'front_matter' token is passed to the callback in the second argument.
+  * The markdown_it `state` object is passed in the third argument.
+  * The callback's `this` references the active markdown-it-front-matter options object 
+    (which is a [`Object.assign()`-ed copy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) of the options object you passed earlier into the `use()` API call).
 
 ```javascript
 const md = require('markdown-it')()
   .use(require('markdown-it-front-matter'), {
-    callback: function(fm) {
-      console.log(fm)
+    callback: function(fm, token, state) {
+      console.log(fm);
     }
   });
 

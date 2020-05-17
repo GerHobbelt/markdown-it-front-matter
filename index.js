@@ -125,7 +125,7 @@ module.exports = function front_matter_plugin(md, opts) {
     state.line = nextLine + (auto_closed ? 1 : 0);
 
     if (opts.callback) {
-        opts.callback.call(opts, token.meta);
+        opts.callback.call(opts, token.meta, token, state);
     }
 
     return true;
