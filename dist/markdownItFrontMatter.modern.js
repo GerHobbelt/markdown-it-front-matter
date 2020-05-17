@@ -1,4 +1,4 @@
-/*! markdown-it-front-matter 0.2.1-2 https://github.com//GerHobbelt/markdown-it-front-matter @license MIT */
+/*! markdown-it-front-matter 0.2.1-3 https://github.com//GerHobbelt/markdown-it-front-matter @license MIT */
 
 module.exports = function front_matter_plugin(md, opts) {
   opts = Object.assign({}, opts);

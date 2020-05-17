@@ -1,4 +1,4 @@
-/*! markdown-it-front-matter 0.2.1-2 https://github.com//GerHobbelt/markdown-it-front-matter @license MIT */
+/*! markdown-it-front-matter 0.2.1-3 https://github.com//GerHobbelt/markdown-it-front-matter @license MIT */
 
 (function (factory) {
   typeof define === 'function' && define.amd ? define(factory) :
