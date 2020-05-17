@@ -1,7 +1,9 @@
 // Process front matter and pass to cb
 'use strict';
 
-module.exports = function front_matter_plugin(md, cb) {
+module.exports = function front_matter_plugin(md, opts) {
+  opts = Object.assign({}, opts)
+
   var min_markers = 3,
       marker_str  = '-',
       marker_char = marker_str.charCodeAt(0),
@@ -122,7 +124,9 @@ module.exports = function front_matter_plugin(md, cb) {
     state.lineMax = old_line_max;
     state.line = nextLine + (auto_closed ? 1 : 0);
 
-    cb(token.meta);
+    if (opts.callback) {
+        opts.callback(token.meta);
+    }
 
     return true;
   }

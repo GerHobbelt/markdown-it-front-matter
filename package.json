@@ -1,7 +1,7 @@
 {
   "name": "@gerhobbelt/markdown-it-front-matter",
   "version": "0.2.1-1",
-  "description": "Plugin to process front matter container for markdown-it markdown parser",
+  "description": "Plugin to process front matter container for markdown-it markdown parser (based on Craig McKenna's original)",
   "repository": {
     "type": "git",
     "url": "git://github.com/ParkSB/markdown-it-front-matter.git"
@@ -20,6 +20,7 @@
     "metadata"
   ],
   "author": "Craig McKenna",
+  "contributors": ["Akshay S Dinesh <asdofindia@gmail.com> (https://asd.learnlearn.in)"],
   "license": "MIT",
   "devDependencies": {
     "@gerhobbelt/markdown-it": "10.0.0-30",
