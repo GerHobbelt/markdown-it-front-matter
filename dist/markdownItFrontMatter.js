@@ -1,8 +1,7 @@
 /*! markdown-it-front-matter 0.2.1-3 https://github.com//GerHobbelt/markdown-it-front-matter @license MIT */
 
-'use strict';
-
-module.exports = function front_matter_plugin(md, opts) {
+// Process front matter and pass to cb
+function front_matter_plugin(md, opts) {
   opts = Object.assign({}, opts);
   let min_markers = 3,
       marker_str = '-',
@@ -19,11 +18,14 @@ module.exports = function front_matter_plugin(md, opts) {
         start_content,
         auto_closed = false,
         start = state.bMarks[startLine] + state.tShift[startLine],
-        max = state.eMarks[startLine];
+        max = state.eMarks[startLine]; // Check out the first character of the first line quickly,
+    // this should filter out non-front matter
 
     if (startLine !== 0 || marker_char !== state.src.charCodeAt(0)) {
       return false;
-    }
+    } // Check out the rest of the marker string
+    // while pos <= 3
+
 
     for (pos = start + 1; pos <= max; pos++) {
       if (marker_str[(pos - start) % marker_len] !== state.src[pos]) {
@@ -38,11 +40,12 @@ module.exports = function front_matter_plugin(md, opts) {
       return false;
     }
 
-    pos -= (pos - start) % marker_len;
+    pos -= (pos - start) % marker_len; // Since start is found, we can report success here in validation mode
 
     if (silent) {
       return true;
-    }
+    } // Search for the end of the block
+
 
     nextLine = startLine;
 
@@ -50,6 +53,8 @@ module.exports = function front_matter_plugin(md, opts) {
       nextLine++;
 
       if (nextLine >= endLine) {
+        // unclosed block should be autoclosed by end of document.
+        // also block seems to be autoclosed by end of parent
         break;
       }
 
@@ -61,6 +66,9 @@ module.exports = function front_matter_plugin(md, opts) {
       max = state.eMarks[nextLine];
 
       if (start < max && state.sCount[nextLine] < state.blkIndent) {
+        // non-empty line with negative indent should stop the list:
+        // - ```
+        //  test
         break;
       }
 
@@ -69,6 +77,7 @@ module.exports = function front_matter_plugin(md, opts) {
       }
 
       if (state.sCount[nextLine] - state.blkIndent >= 4) {
+        // closing fence should be indented less than 4 spaces
         continue;
       }
 
@@ -76,18 +85,21 @@ module.exports = function front_matter_plugin(md, opts) {
         if (marker_str[(pos - start) % marker_len] !== state.src[pos]) {
           break;
         }
-      }
+      } // closing code fence must be at least as long as the opening one
+
 
       if (Math.floor((pos - start) / marker_len) < marker_count) {
         continue;
-      }
+      } // make sure tail has spaces only
+
 
       pos -= (pos - start) % marker_len;
       pos = state.skipSpaces(pos);
 
       if (pos < max) {
         continue;
-      }
+      } // found!
+
 
       auto_closed = true;
       break;
@@ -95,7 +107,8 @@ module.exports = function front_matter_plugin(md, opts) {
 
     old_parent = state.parentType;
     old_line_max = state.lineMax;
-    state.parentType = 'container';
+    state.parentType = 'container'; // this will prevent lazy continuations from ever going past our end marker
+
     state.lineMax = nextLine;
     token = state.push('front_matter', null, 0);
     token.hidden = true;
@@ -117,5 +130,7 @@ module.exports = function front_matter_plugin(md, opts) {
   md.block.ruler.before('table', 'front_matter', frontMatter, {
     alt: ['paragraph', 'reference', 'blockquote', 'list']
   });
-};
-//# sourceMappingURL=markdownItFrontMatter.js.map
+}
+
+export default front_matter_plugin;
+//# sourceMappingURL=markdownItFrontMatter.modern.js.map

@@ -20,11 +20,11 @@
   ],
   "repository": "GerHobbelt/markdown-it-front-matter",
   "license": "MIT",
+  "type": "module",
   "source": "index.js",
   "main": "dist/markdownItFrontMatter.js",
-  "module": "dist/markdownItFrontMatter.mjs",
   "engines": {
-    "node": ">=10"
+    "node": ">=12.20.0"
   },
   "scripts": {
     "build": "make",
@@ -38,19 +38,23 @@
     "cov": "make report-coverage",
     "pub": "npm publish --access public"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
-    "@gerhobbelt/markdown-it": "10.0.0-34",
-    "@gerhobbelt/prepend-header": "1.0.8-3",
-    "chai": "4.2.0",
-    "cross-env": "7.0.2",
-    "eslint": "7.0.0",
-    "microbundle": "0.12.0",
-    "mocha": "7.1.2",
-    "nyc": "15.0.1"
+    "@gerhobbelt/markdown-it": "12.0.4-51",
+    "@gerhobbelt/prepend-header": "1.1.0-7",
+    "argparse": "2.0.1",
+    "cross-env": "7.0.3",
+    "eslint": "7.19.0",
+    "microbundle": "0.13.0",
+    "mocha": "8.2.1",
+    "nyc": "15.1.0"
   },
   "reporter": [
     "lcov",
     "text",
+    "html",
     "text-summary"
   ]
 }

@@ -1,12 +1,23 @@
-/* eslint-env node, mocha */
+/* eslint-env mocha, es6 */
 
-const assert = require('assert');
+import assert from 'assert';
+import path from 'path';
+import markdown_it from '@gerhobbelt/markdown-it';
+
+import { fileURLToPath } from 'url';
+
+// see https://nodejs.org/docs/latest-v13.x/api/esm.html#esm_no_require_exports_module_exports_filename_dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+import plugin from '../index.js';
+
 
 describe('Markdown It Front Matter', () => {
 
   let foundFrontmatter;
-  const md = require('@gerhobbelt/markdown-it')()
-    .use(require('../'), {
+  const md = markdown_it()
+    .use(plugin, {
       callback: fm => { foundFrontmatter = fm; }
     });
 
@@ -131,8 +142,8 @@ describe('Markdown It Front Matter', () => {
         assert.equal(typeof state.env, 'object');
       }
     };
-    const md = require('@gerhobbelt/markdown-it')()
-      .use(require('../'), options);
+    const md = markdown_it()
+      .use(plugin, options);
 
     assert.equal(
       md.render([

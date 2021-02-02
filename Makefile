@@ -1,10 +1,10 @@
 PATH        := ./node_modules/.bin:${PATH}
 
-NPM_PACKAGE := $(shell support/getGlobalName.js package)
-NPM_VERSION := $(shell support/getGlobalName.js version)
+NPM_PACKAGE := $(shell node support/getGlobalName.js package)
+NPM_VERSION := $(shell node support/getGlobalName.js version)
 
-GLOBAL_NAME := $(shell support/getGlobalName.js global)
-BUNDLE_NAME := $(shell support/getGlobalName.js microbundle)
+GLOBAL_NAME := $(shell node support/getGlobalName.js global)
+BUNDLE_NAME := $(shell node support/getGlobalName.js microbundle)
 
 TMP_PATH    := /tmp/${NPM_PACKAGE}-$(shell date +%s)
 
@@ -15,7 +15,7 @@ CURR_HEAD   := $(firstword $(shell git show-ref --hash HEAD | cut -b -6) master)
 GITHUB_PROJ := https://github.com//GerHobbelt/${NPM_PACKAGE}
 
 
-build: lint bundle test coverage todo 
+build: lintfix bundle test coverage todo 
 
 lint:
 	eslint .
@@ -26,7 +26,9 @@ lintfix:
 bundle:
 	-rm -rf ./dist
 	mkdir dist
-	microbundle --no-compress --target node --strict --name ${GLOBAL_NAME}
+	microbundle --no-compress --target node --strict --name ${GLOBAL_NAME} -f modern
+	mv dist/${GLOBAL_NAME}.modern.js dist/${GLOBAL_NAME}.js
+	mv dist/${GLOBAL_NAME}.modern.js.map dist/${GLOBAL_NAME}.js.map
 	npx prepend-header 'dist/*js' support/header.js
 
 test:
@@ -61,7 +63,7 @@ todo:
 	@echo "TODO list"
 	@echo "---------"
 	@echo ""
-	grep 'TODO' -n -r ./ --exclude-dir=node_modules --exclude-dir=unicode-homographs --exclude-dir=dist --exclude-dir=coverage --exclude=Makefile 2>/dev/null || test true
+	grep 'TODO' -n -r ./ --exclude-dir=node_modules --exclude-dir=unicode-homographs --exclude-dir=.nyc_output --exclude-dir=dist --exclude-dir=coverage --exclude=Makefile 2>/dev/null || test true
 
 clean:
 	-rm -rf ./coverage/
@@ -77,6 +79,14 @@ prep: superclean
 	-npm install
 	-npm audit fix
 
+prep-ci: clean
+	-rm -rf ./node_modules/
+	-npm ci
+	-npm audit fix
 
-.PHONY: clean superclean prep publish lint fix test todo coverage report-coverage doc build gh-doc bundle
+report-config:
+	-echo "NPM_PACKAGE=${NPM_PACKAGE} NPM_VERSION=${NPM_VERSION} GLOBAL_NAME=${GLOBAL_NAME} BUNDLE_NAME=${BUNDLE_NAME} TMP_PATH=${TMP_PATH} REMOTE_NAME=${REMOTE_NAME} REMOTE_REPO=${REMOTE_REPO} CURR_HEAD=${CURR_HEAD}"
+
+
+.PHONY: clean superclean prep prep-ci report-config publish lint lintfix test todo coverage report-coverage doc build gh-doc bundle
 .SILENT: help lint test todo

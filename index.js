@@ -1,7 +1,7 @@
 // Process front matter and pass to cb
 
 
-module.exports = function front_matter_plugin(md, opts) {
+export default function front_matter_plugin(md, opts) {
   opts = Object.assign({}, opts);
 
   let min_markers = 3,
@@ -144,4 +144,4 @@ module.exports = function front_matter_plugin(md, opts) {
       ]
     }
   );
-};
+}
