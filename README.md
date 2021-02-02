@@ -1,4 +1,7 @@
 # markdown-it-front-matter
+ 
+[![npm](https://badge.fury.io/js/markdown-it-front-matter.svg)](https://badge.fury.io/js/markdown-it-front-matter)
+[![master-ci](https://github.com/ParkSB/markdown-it-front-matter/workflows/master-ci/badge.svg)](https://github.com/ParkSB/markdown-it-front-matter/actions?query=workflow%3Amaster-ci)
 
 [![Build Status](https://img.shields.io/travis/GerHobbelt/markdown-it-front-matter/master.svg?style=flat)](https://travis-ci.org/GerHobbelt/markdown-it-front-matter)
 [![NPM version](https://img.shields.io/npm/v/@gerhobbelt/markdown-it-front-matter.svg?style=flat)](https://www.npmjs.org/package/@gerhobbelt/markdown-it-front-matter)
@@ -7,14 +10,20 @@
 > Plugin for processing front matter for [markdown-it](https://github.com/markdown-it/markdown-it) markdown parser.
 
 
-### Valid Front Matter
+## Install
+
+```sh
+$ npm install markdown-it-front-matter --save
+```
+
+## Valid Front Matter
 
 Essentially, valid front matter is a fenced block:
 
-  * Indicated by **three** or **more** dashes: `---`
-  * Opening and closing fences must be the same number of *dash* characters
-  * Opening fence must begin on the first line of the markdown string/file
-  * Opening fence must not be indented
+* Indicated by **three** or **more** dashes: `---`
+* Opening and closing fences must be the same number of *dash* characters
+* Opening fence must begin on the first line of the markdown string/file
+* Opening fence must not be indented
 
 ```yaml
 ---
@@ -27,7 +36,7 @@ valid-front-matter: true
 > (bring your own front matter parser, e.g. [front-matter](https://www.npmjs.com/package/gray-matter))
 
 
-### Example
+## Example
 
   * Front Matter is not rendered.
   * Any markup inside the block is passed to the **required** callback function as the first parameter.
@@ -49,9 +58,14 @@ let result = md.render('---\ntitle: This is the Title\n---\n# Heading\n----\nsom
 // > title: This is the Title
 ```
 
+## References / Thanks
+
 Code heavily borrowed from [markdown-it-container](https://github.com/markdown-it/markdown-it-container)
 
-Thank you:
+* Alex Kocharin [github/rlidwka](https://github.com/rlidwka)
+* Vitaly Puzrin [github/puzrin](https://github.com/puzrin)
 
-- [puzrin](https://github.com/puzrin)
-- [rlidwka](https://github.com/rlidwka)
+
+## License
+
+_markdown-it-front-matter_ is distributed under the MIT License - see the [LICENSE](LICENSE) file for details.
