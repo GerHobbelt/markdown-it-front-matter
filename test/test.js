@@ -1,7 +1,7 @@
 /* eslint-env mocha, es6 */
 
-import assert from 'assert';
 import path from 'path';
+import assert from 'assert';
 import markdown_it from '@gerhobbelt/markdown-it';
 
 import { fileURLToPath } from 'url';
@@ -161,6 +161,5 @@ describe('Markdown It Front Matter', () => {
     assert.equal(foundFrontmatter.bar, 2);
     assert.equal(typeof foundFrontmatter.callback, 'function');
   });
-
 
 });
