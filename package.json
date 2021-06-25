@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/markdown-it-front-matter",
-  "version": "0.2.3-4",
+  "version": "0.2.3-5",
   "description": "Plugin to process front matter container for markdown-it markdown parser (based on Craig McKenna's original)",
   "keywords": [
     "markdown-it-plugin",
